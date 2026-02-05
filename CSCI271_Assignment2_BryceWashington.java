@@ -1,5 +1,5 @@
 // Creates test fractions to test out the Fractions.java code
- public class TestFraction {
+ public class CSCI271_Assignment2_BryceWashington {
     public static void main (String[] args) {
 	// Task 1: Construction & normalization
         Fractions f1 = new Fractions(6, -24); 
