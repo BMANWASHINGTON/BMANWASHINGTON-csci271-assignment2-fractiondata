@@ -51,7 +51,7 @@ public class Fractions {
     public Fractions(long a, long b) {
         if (b == 0) {
 	    // Infinity & NaN
-            this.num = a;
+            this.num = a; // > 0 -> Infinity, -> -Infinity, 0 -> NaN
             this.denom = 0;
         }
         else {
@@ -101,7 +101,7 @@ public class Fractions {
         return denom == 0 && num != 0;
     }
     
-    // ToString() function
+    // Task 2: ToString() function
     @Override
     public String toString() {
         if (denom == 0) {
@@ -122,37 +122,37 @@ public class Fractions {
     }
     
     // Task 3: Different mathematical functions
-    public Fractions divide(Fractions f) {
+    public Fractions divide(Fractions f) { // (a/b) (c/d) = (a*d) / (b*c)
         return new Fractions(this.num * f.denom, this.denom * f.num);
     }
     
-    public Fractions multiply(Fractions f) {
+    public Fractions multiply(Fractions f) { // (a*c) / (b*d)
         return new Fractions(this.num * f.num, this.denom * f.denom);
     }
     
-    public Fractions subtract(Fractions f) {
+    public Fractions subtract(Fractions f) { // (a*d - c*b) / (b*d)
         long n = this.num * f.denom - f.num * this.denom;
         long d = this.denom * f.denom;
         return new Fractions(n, d);
     }
     
-    public Fractions add(Fractions f) {
+    public Fractions add(Fractions f) { // (a*d + c*b) / (b*d)
         long n = this.num * f.denom + f.num * this.denom;
         long d = this.denom * f.denom;
         return new Fractions(n, d);
     }
     
-    public Fractions negate() {
+    public Fractions negate() { // negate() function
         return new Fractions(-this.num, this.denom);
     }
     
-    public Fractions pow(int n) {
+    public Fractions pow(int n) { // pow(n) where n = 0 or is a negative
         if (isNan()) {
-            return this;
+            return this; // NaN^n is NaN
         }
         
         if (n == 0) {
-            return new Fractions(1, 1);
+            return new Fractions(1, 1); // Any non-NaN fraction^0 = 1
         }
         
         boolean negative = n < 0;
@@ -164,6 +164,7 @@ public class Fractions {
         long numPow = 1;
         long denomPow = 1;
         
+        // Repeated multiplication
         for (long i = 0; i < exp; i++) {
             numPow *= nNum;
             denomPow *= nDenom;
