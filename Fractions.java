@@ -23,23 +23,46 @@
   <Bryce Washington>
   <W30668619>
   *****************************************************************************/
-  
+
+/******************************************************************************************************************
+Description: This function creates a new fraction that is reduced & normalized so that the denominator is
+             always positive. The object represents the rational number a/b.
+
+Parameters: a - numerator, b - denominator
+
+Pre-conditions: N/A
+
+Post-conditions: The fraction is stored in reduced form. 
+                 If b == 0, the fraction represents Infinity, -Infinity, or NaN.
+                 If a == 0 and b != 0, the fraction becomes 0/1.
+
+Returns: A new Fraction object
+
+Called by: main(), add(), subtract(), multiply(), divide(), negate(), pow()
+
+Calls: gcd()
+
+******************************************************************************************************************/  
 public class Fractions {
-    private long num;
-    private long denom;
+    private long num; // numerator
+    private long denom; //denominator
     
+    // Task 1: Created reduced, standard form fraction
     public Fractions(long a, long b) {
         if (b == 0) {
+	    // Infinity & NaN
             this.num = a;
             this.denom = 0;
         }
         else {
+	    // Normalize: denominator >= 0
             if (b < 0) {
                 a = -a;
                 b = -b;
             }
             
             if (a == 0) {
+            // 0 in normalized form is 0/1
                 this.num = 0;
                 this.denom = 1;
             }
@@ -51,10 +74,12 @@ public class Fractions {
         }
     }
     
+    // Task 1: constructor a/1
     public Fractions (long a) {
         this(a, 1);
     }
     
+    // GCD algorithm
     private static long gcd(long a, long b) {
         if (a < 0) a = -a;
         if (b < 0) b = -b;
@@ -76,16 +101,17 @@ public class Fractions {
         return denom == 0 && num != 0;
     }
     
+    // ToString() function
     @Override
     public String toString() {
         if (denom == 0) {
-            if (num > 0) {
+            if (num > 0) { // Fraction is infinity 
                 return "Infinity";
             }
-            else if (num < 0) {
+            else if (num < 0) { // Fraction is -Infinity
                 return "-Infinity";
             }
-            else {
+            else { // Returns "NaN'
                 return "NaN";
             }
         }
@@ -95,6 +121,7 @@ public class Fractions {
         return num + "/" + denom;
     }
     
+    // Task 3: Different mathematical functions
     public Fractions divide(Fractions f) {
         return new Fractions(this.num * f.denom, this.denom * f.num);
     }
